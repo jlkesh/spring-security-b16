@@ -215,3 +215,7 @@ build/
 /out/artifacts/spring_security_Web_exploded/WEB-INF/lib/unbescape-1.1.6.RELEASE.jar
 /.idea/vcs.xml
 /.idea/workspace.xml
+/.idea/git_toolbox_prj.xml
+/out/artifacts/spring_security_Web_exploded/WEB-INF/classes/static/js/main.js
+/.idea/inspectionProfiles/Project_Default.xml
+/out/artifacts/spring_security_Web_exploded/WEB-INF/lib/thymeleaf-extras-springsecurity5-3.0.4.RELEASE.jar

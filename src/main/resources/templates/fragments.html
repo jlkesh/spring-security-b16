@@ -26,8 +26,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                <li class="nav-item" sec:authorize="hasRole('admin')">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('manager')">
+                    <a class="nav-link" href="/mana">Manager</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('manager','admin')">
+                    <a class="nav-link" href="/admin-manager">Admin Manager</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
