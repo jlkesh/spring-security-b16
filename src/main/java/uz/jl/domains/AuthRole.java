@@ -26,7 +26,10 @@ public class AuthRole implements GrantedAuthority {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(targetEntity = AuthPermission.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = AuthPermission.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
     @JoinTable(
             joinColumns = @JoinColumn(name = "auth_role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "auth_permission_id", referencedColumnName = "id")

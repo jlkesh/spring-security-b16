@@ -14,7 +14,7 @@ import uz.jl.repository.AuthRoleRepository;
 import java.util.Collections;
 import java.util.List;
 
-@Component
+//@Component
 public class InitDB implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext context) throws BeansException {
@@ -44,9 +44,6 @@ public class InitDB implements ApplicationContextAware {
         manager.setCode("MANAGER");
         manager.setName("Manager");
 
-
-        authRoleRepository.save(admin);
-        authRoleRepository.save(manager);
 
         superUser.getRoles().add(admin);
         superUser.getRoles().add(manager);

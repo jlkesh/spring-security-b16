@@ -1,5 +1,6 @@
 package uz.jl.configs.security;
 
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import uz.jl.domains.AuthPermission;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@ToString
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
     private final AuthUser user;
 

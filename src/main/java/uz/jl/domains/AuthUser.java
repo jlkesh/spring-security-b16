@@ -1,9 +1,6 @@
 package uz.jl.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.management.relation.Role;
@@ -16,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString
 public class AuthUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +29,9 @@ public class AuthUser {
     @Column(nullable = false, columnDefinition = "bool default true")
     private boolean active;
 
-    @ManyToMany(targetEntity = AuthRole.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = AuthRole.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     @JoinTable(
             joinColumns = @JoinColumn(name = "auth_user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "auth_role_id", referencedColumnName = "id")
