@@ -13,7 +13,8 @@ public class ApplicationServletConfigurer extends AbstractAnnotationConfigDispat
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{
                 ApplicationConfigurer.class,
-                SecurityConfigurer.class
+                SecurityConfigurer.class,
+                PersistenceConfigurer.class
         };
     }
 

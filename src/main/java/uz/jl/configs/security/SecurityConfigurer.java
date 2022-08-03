@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
+import uz.jl.services.AuthService;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @PropertySource("classpath:application.properties")
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public static final String[] WHITE_LIST = new String[]{
             "/",
@@ -35,7 +37,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.security.rememberme.secret.key}")
     public String SECRET_KEY;
-    //    private final AuthenticationEntryPoint authenticationEntryPoint;
+
+    private final AuthService authService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -77,24 +80,16 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         //                .authenticationEntryPoint(authenticationEntryPoint);
     }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.
-                inMemoryAuthentication()
-                .withUser("admin")
-                .password(passwordEncoder.encode("123"))
-                .roles("admin")
-                .and()
-                .withUser("manager")
-                .password(passwordEncoder.encode("123"))
-                .roles("manager")
-                .and()
-                .withUser("user")
-                .password(passwordEncoder.encode("123"))
-                .authorities(new SimpleGrantedAuthority("create"))
-        ;
+        auth.userDetailsService(authService)
+                .passwordEncoder(passwordEncoder);
     }
 
-
-
+    @Bean
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 }
